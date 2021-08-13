@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Itachi Uchiha Edo</title>
+    <link rel="icon" href="/mangekyo.jpg">
+    
+    <style>
+      body {
+        color: #600101;
+        background-color: #000000;
+        text-align: center;
+        margin: 0;
+        font-size: x-large;
+      }
+      canvas {
+        display: block;
+      }
+
+  
+    </style>
+  </head>
+  <body>
+
+   
+
+    <p>    <h2>Itachi Uchiha Edo</h2>   </p> 
+   
+    <script src="three.js"></script>
+    <script type="module" src="GLTFLoader.js"></script>
+    <script type="module">
+      import { GLTFLoader } from "./GLTFLoader.js";
+
+     
+     
+
+      var scene = new THREE.Scene();
+
+      var camera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        2,
+        1000
+      );
+
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      var loader = new GLTFLoader();
+
+      var obj;
+      loader.load("scene.gltf", function (gltf) {
+        obj = gltf.scene;
+        scene.add(gltf.scene);
+      });
+      
+      var uchihaTexture = new THREE.TextureLoader().load('uchihac.jpg');
+      scene.background = uchihaTexture;
+
+      const directionalLight = new THREE.DirectionalLight( 0xffffff, 1);
+      directionalLight.position.set(0,1,0);
+
+      directionalLight.castShadow = true;
+
+      scene.add( directionalLight );
+
+      var light = new THREE.PointLight(0xc4c4c4,1);
+
+      light.position.set(0,300,500);
+
+      scene.add(light);
+
+      var light2 = new THREE.PointLight(0xc4c4c4,1);
+
+      light2.position.set(500,100,0);
+
+      scene.add(light2);
+
+      var light3 = new THREE.PointLight(0xc4c4c4,1);
+
+      light3.position.set(0,100,-500);
+
+      scene.add(light3);
+
+      var light4 = new THREE.PointLight(0xc4c4c4,1);
+
+      light4.position.set(-500,300,500);
+
+      scene.add(light4);
+
+
+
+
+    
+
+      
+      camera.position.set(1, 100, 300);
+      function animate() {
+        requestAnimationFrame(animate);
+        obj.rotation.y += 0.001;
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
+  </body>
+</html>
